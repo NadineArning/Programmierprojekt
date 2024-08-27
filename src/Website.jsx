@@ -1,17 +1,19 @@
 import React from 'react';
-import { BrowserRouter as router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Navbar from './Navbar';
+import About from './About';
+import Contact from './Contact';
+import Documentation from './Documentation';
+import Home from './Home';
 import './Website.css';
 
 
 function Website(){
     return (
-        <router>
+        <Router>
         <div className="Website">
             <header className='Website-header'>
-                <p>
-                    Hier entsteht der Header der Website
-                </p>
+
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -21,7 +23,7 @@ function Website(){
                 </Routes>
             </header>
         </div>
-        </router>
+        </Router>
     );
 }
 

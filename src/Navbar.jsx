@@ -33,7 +33,9 @@ const NavLink = styled(Link)`
 const Navbar = () => {
   return (
     <NavbarContainer>
-      <Logo>Operations Research Tool</Logo>
+      <Logo>
+        <Link>https://www.google.de/?hl=de</Link>
+      </Logo>
       <NavLinks>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/about">About</NavLink>
