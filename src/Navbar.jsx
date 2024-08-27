@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -11,8 +11,14 @@ const NavbarContainer = styled.nav`
 `;
 
 const Logo = styled.div`
-  font-size: 1.5rem;
-  color: white;
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 50px;
+    width: auto;
+    cursor: pointer;
+  }
 `;
 
 const NavLinks = styled.div`
@@ -34,7 +40,12 @@ const Navbar = () => {
   return (
     <NavbarContainer>
       <Logo>
-        <Link>https://www.google.de/?hl=de</Link>
+        <Link to="/">
+          <img 
+            src={`${process.env.PUBLIC_URL}/orlogo.png`} 
+            alt="Zurück zur Startseite" 
+          />
+        </Link>
       </Logo>
       <NavLinks>
         <NavLink to="/">Home</NavLink>
