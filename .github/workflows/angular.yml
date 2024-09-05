@@ -1,0 +1,74 @@
+name: CI/CD for Angular Project
+
+# Ausführung bei allen Push- und Pull-Request in dem Main-Branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Test Angular App
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+      # Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Stage: Linting
+      - name: Run Linter
+        run: npm run lint
+
+      # Stage: Unit Tests
+      - name: Run Unit Tests
+        run: npm run test -- --watch=false
+
+      # Stage: Build Angular App
+      - name: Build Angular Application
+        run: npm run build -- --prod
+
+  # Deploy to GitHub Pages or another platform
+  deploy:
+    name: Deploy Angular App
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: npm install
+
+      # Build Project for Deployment
+      - name: Build for Deployment
+        run: npm run build -- --prod
+
+      # Deploy to GitHub Pages (optional step)
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/your-angular-app-name
