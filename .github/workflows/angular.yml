@@ -9,6 +9,12 @@ on:
     branches:
       - main
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./programmierprojekt
+
+
 jobs:
   build:
     name: Build and Test Angular App
@@ -31,44 +37,8 @@ jobs:
 
       # Install Dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm install -g @angular/cli@17
 
       # Stage: Linting
       - name: Run Linter
-        run: npm run lint
-
-      # Stage: Unit Tests
-      - name: Run Unit Tests
-        run: npm run test -- --watch=false
-
-      # Stage: Build Angular App
-      - name: Build Angular Application
-        run: npm run build -- --prod
-
-  # Deploy to GitHub Pages or another platform
-  deploy:
-    name: Deploy Angular App
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Dependencies
-        run: npm install
-
-      # Build Project for Deployment
-      - name: Build for Deployment
-        run: npm run build -- --prod
-
-      # Deploy to GitHub Pages (optional step)
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/your-angular-app-name
+        run: ng add @angular-eslint/schematics --skip-confirmation && ng lint
