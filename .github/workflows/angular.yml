@@ -42,3 +42,7 @@ jobs:
       # Stage: Linting
       - name: Run Linter
         run: ng add @angular-eslint/schematics --skip-confirmation && ng lint
+
+      # Stage: Test-Headless
+      - name: Run Headless Test in Chrome
+        run: ng test --watch=false --browsers=ChromeHeadless
