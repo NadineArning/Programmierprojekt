@@ -37,7 +37,7 @@ jobs:
 
       # Install Dependencies
       - name: Install Dependencies
-        run: npm install -g @angular/cli@17
+        run: npm install -g @angular/cli@18
 
       # Stage: Linting
       - name: Run Linter
