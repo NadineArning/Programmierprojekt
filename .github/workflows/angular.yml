@@ -57,6 +57,6 @@ jobs:
       - name: Transfer results
         run: snyk monitor
         
-      # Stage: Test-Headless
+      # Stage: Smoke Test
       - name: Run Headless Test in Chrome
         run: ng test --watch=false --browsers=ChromeHeadless
