@@ -18,5 +18,6 @@ ${url}    https://google.com
     [Dokumentation]     Öffnet die OR-Webseite 
     New Browser    ${BROWSER}    ${HEADLESS}
     New Page    ${url}
+    Sleep    3s
     Close Browser
     
