@@ -8,7 +8,7 @@ ${HEADLESS}     False
 ${url}    https://google.com
 
 *** Testfälle ***
-Erster Testfall
+Öffne Browser
     [Dokumentation]    Erster Testfall
     Öffne OR-Webseite
     
