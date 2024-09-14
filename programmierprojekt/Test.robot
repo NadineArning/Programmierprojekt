@@ -4,7 +4,6 @@ Library    Browser
 
 *** Variablen ***
 ${BROWSER}    chromium
-# ${HEADLESS}     False
 ${url}    https://google.com
 
 *** Testfälle ***
@@ -16,7 +15,7 @@ ${url}    https://google.com
 *** Schlüsselwörter ***
 Öffne OR-Webseite
     [Dokumentation]     Öffnet die OR-Webseite 
-    New Browser    ${BROWSER}    ${HEADLESS}
+    New Browser    ${BROWSER}
     New Page    ${url}
     Sleep    3s
     Close Browser
