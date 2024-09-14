@@ -1,10 +1,10 @@
 language:de
 *** Einstellungen ***
-Library    Browser
+Library    Browser  headless=True
 
 *** Variablen ***
 ${BROWSER}    chromium
-${HEADLESS}     False
+# ${HEADLESS}     False
 ${url}    https://google.com
 
 *** Testfälle ***
