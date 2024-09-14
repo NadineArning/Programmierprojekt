@@ -15,21 +15,18 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'  # Ändere die Version, wenn nötig
+          python-version: '3.8'  
 
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Wähle die passende Node.js Version
+          node-version: '16'
 
       - name: Install Robot Framework and Browser library
         run: |
           pip install robotframework
           pip install robotframework-browser
-
-      - name: Install Browser library dependencies
-        run: |
-          python -m browser install
+          rfbrowser init
 
       - name: Run Robot Framework Tests
         run: |
