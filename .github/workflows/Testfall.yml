@@ -27,9 +27,9 @@ jobs:
           pip install robotframework
           pip install robotframework-browser
 
-      - name: Install Node.js dependencies for Browser
+      - name: Install Browser library dependencies
         run: |
-          npx rfbrowser init  # Installiere die notwendigen Node.js Abhängigkeiten
+          python -m browser install
 
       - name: Run Robot Framework Tests
         run: |
