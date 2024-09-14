@@ -1,6 +1,6 @@
 language:de
 *** Einstellungen ***
-Library    Browser  headless=True
+Library    Browser
 
 *** Variablen ***
 ${BROWSER}    chromium
