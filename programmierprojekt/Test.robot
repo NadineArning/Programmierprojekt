@@ -7,15 +7,15 @@ ${BROWSER}    chromium
 ${HEADLESS}     False
 ${url}    https://google.com
 
-*** Testfälle ***
-Öffne Browser
+*** TestfÃ¤lle ***
+Ã–ffne Browser
     [Dokumentation]    Erster Testfall
-    Öffne OR-Webseite
+    Ã–ffne OR-Webseite
     
 
-*** Schlüsselwörter ***
-Öffne OR-Webseite
-    [Dokumentation]     Öffnet die OR-Webseite 
+*** SchlÃ¼sselwÃ¶rter ***
+Ã–ffne OR-Webseite
+    [Dokumentation]     Ã–ffnet die OR-Webseite 
     New Browser    ${BROWSER}    ${HEADLESS}
     New Page    ${url}
     Sleep    3s
