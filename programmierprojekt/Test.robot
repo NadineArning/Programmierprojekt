@@ -1,0 +1,22 @@
+language:de
+*** Einstellungen ***
+Library    Browser
+
+*** Variablen ***
+${BROWSER}    chromium
+${HEADLESS}     False
+${url}    https://google.com
+
+*** Testfälle ***
+Erster Testfall
+    [Dokumentation]    Erster Testfall
+    Öffne OR-Webseite
+    
+
+*** Schlüsselwörter ***
+Öffne OR-Webseite
+    [Dokumentation]     Öffnet die OR-Webseite 
+    New Browser    ${BROWSER}    ${HEADLESS}
+    New Page    ${url}
+    Close Browser
+    
