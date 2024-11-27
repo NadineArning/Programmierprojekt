@@ -90,7 +90,6 @@ jobs:
           
           extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
           "
-          
                 - name: Upload Results
                   uses: actions/upload-artifact@v4
                   with:
