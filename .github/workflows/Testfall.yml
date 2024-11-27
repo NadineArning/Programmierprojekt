@@ -69,7 +69,7 @@ jobs:
                               if aktuelles_schluesselwort:
                                   ergebnisse.append({
                                       'schluesselwort': aktuelles_schluesselwort,
-                                      'dokumentation': '\\n'.join(dokumentation)
+                                      'dokumentation': '\n'.join(dokumentation)
                                   })
                               aktuelles_schluesselwort = zeile
                               dokumentation = []
@@ -79,14 +79,14 @@ jobs:
                   if aktuelles_schluesselwort:
                       ergebnisse.append({
                           'schluesselwort': aktuelles_schluesselwort,
-                          'dokumentation': '\\n'.join(dokumentation)
+                          'dokumentation': '\n'.join(dokumentation)
                       })
           
               with open(ausgabe_datei, 'w', encoding='utf-8') as ausgabe:
                   for ergebnis in ergebnisse:
-                      ausgabe.write(f'Schlüsselwort: {ergebnis[''schluesselwort'']}\n')
-                      ausgabe.write('Dokumentation:\\n')
-                      ausgabe.write(f'{ergebnis[''dokumentation'']}\n')
+                      ausgabe.write(f'Schlüsselwort: {ergebnis["schluesselwort"]}\n')
+                      ausgabe.write('Dokumentation:\n')
+                      ausgabe.write(f'{ergebnis["dokumentation"]}\n')
                       ausgabe.write('\n' + '='*50 + '\n\n')
           
               print(f'Dokumentation erfolgreich in {ausgabe_datei} gespeichert.")
