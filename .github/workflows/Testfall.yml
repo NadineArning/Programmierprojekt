@@ -87,7 +87,6 @@ jobs:
                       ausgabe.write(f'Schlüsselwort: {ergebnis["schluesselwort"]}\n')
                       ausgabe.write('Dokumentation:\n')
                       ausgabe.write(f'{ergebnis["dokumentation"]}\n')
-                      ausgabe.write('\n' + '='*50 + '\n\n')
           
               print(f'Dokumentation erfolgreich in {ausgabe_datei} gespeichert.")
           
