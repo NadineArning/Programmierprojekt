@@ -1,26 +1,27 @@
-name: Run Robot Framework Tests
+name: Run Robot Framework Tests and Generate Documentation
 
 on:
   push:
     branches:
       - main
+
 jobs:
-  test:
+  test_and_document:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.8'  
+          python-version: '3.8'
 
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Install Robot Framework and Browser library
         run: |
@@ -30,7 +31,7 @@ jobs:
 
       - name: Run Robot Framework Tests
         run: |
-          robot programmierprojekt/Test.robot
+          robot --outputdir results programmierprojekt/Test.robot
 
       - name: Generate Report and Log
         run: |
@@ -38,7 +39,7 @@ jobs:
 
       - name: Publish Documentation
         if: success()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: robot-test-results
           path: results/
