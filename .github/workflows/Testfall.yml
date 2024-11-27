@@ -1,12 +1,11 @@
-name: Run Robot Framework Tests and Generate Documentation
+name: Run Robot Framework Tests
 
 on:
   push:
     branches:
       - main
-
 jobs:
-  test_and_document:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.8'  
 
       - name: Install Node.js
         uses: actions/setup-node@v2
@@ -31,7 +30,7 @@ jobs:
 
       - name: Run Robot Framework Tests
         run: |
-          robot --outputdir results programmierprojekt/Test.robot
+          robot programmierprojekt/Test.robot
 
       - name: Generate Report and Log
         run: |
