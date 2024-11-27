@@ -36,66 +36,66 @@ jobs:
       - name: Extract Keywords and Documentation
         run: |
           python3 -c "
-import os
-
-def extrahiere_keywords_und_dokumentation(verzeichnis, ausgabe_datei):
-    robot_dateien = []
-    for wurzel, ordner, dateien in os.walk(verzeichnis):
-        for datei in dateien:
-            if datei.endswith('.robot'):
-                robot_dateien.append(os.path.join(wurzel, datei))
-
-    ergebnisse = []
-
-    for robot_datei in robot_dateien:
-        with open(robot_datei, 'r', encoding='utf-8') as datei:
-            zeilen = datei.readlines()
-        
-        schluesselwoerter_begonnen = False
-        aktuelles_schluesselwort = None
-        dokumentation = []
-
-        for zeile in zeilen:
-            zeile = zeile.strip()
-            if zeile.startswith('*** Schlüsselwörter ***'):
-                schluesselwoerter_begonnen = True
-                aktuelles_schluesselwort = None
-                continue
-            elif zeile.startswith('***') and schluesselwoerter_begonnen:
-                schluesselwoerter_begonnen = False
-            
-            if schluesselwoerter_begonnen:
-                if not zeile.startswith('[') and zeile:
-                    if aktuelles_schluesselwort:
-                        ergebnisse.append({
-                            'schluesselwort': aktuelles_schluesselwort,
-                            'dokumentation': '\\n'.join(dokumentation)
-                        })
-                    aktuelles_schluesselwort = zeile
-                    dokumentation = []
-                elif zeile.startswith('[Dokumentation]') and aktuelles_schluesselwort:
-                    dokumentation.append(zeile.replace('[Dokumentation]', '').strip())
-
-        if aktuelles_schluesselwort:
-            ergebnisse.append({
-                'schluesselwort': aktuelles_schluesselwort,
-                'dokumentation': '\\n'.join(dokumentation)
-            })
-
-    with open(ausgabe_datei, 'w', encoding='utf-8') as ausgabe:
-        for ergebnis in ergebnisse:
-            ausgabe.write(f'Schlüsselwort: {ergebnis[''schluesselwort'']}\n')
-            ausgabe.write('Dokumentation:\\n')
-            ausgabe.write(f'{ergebnis[''dokumentation'']}\n')
-            ausgabe.write('\n' + '='*50 + '\n\n')
-
-    print(f'Dokumentation erfolgreich in {ausgabe_datei} gespeichert.")
-
-extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
-"
-
-      - name: Upload Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: robot-test-results
-          path: results/
+          import os
+          
+          def extrahiere_keywords_und_dokumentation(verzeichnis, ausgabe_datei):
+              robot_dateien = []
+              for wurzel, ordner, dateien in os.walk(verzeichnis):
+                  for datei in dateien:
+                      if datei.endswith('.robot'):
+                          robot_dateien.append(os.path.join(wurzel, datei))
+          
+              ergebnisse = []
+          
+              for robot_datei in robot_dateien:
+                  with open(robot_datei, 'r', encoding='utf-8') as datei:
+                      zeilen = datei.readlines()
+                  
+                  schluesselwoerter_begonnen = False
+                  aktuelles_schluesselwort = None
+                  dokumentation = []
+          
+                  for zeile in zeilen:
+                      zeile = zeile.strip()
+                      if zeile.startswith('*** Schlüsselwörter ***'):
+                          schluesselwoerter_begonnen = True
+                          aktuelles_schluesselwort = None
+                          continue
+                      elif zeile.startswith('***') and schluesselwoerter_begonnen:
+                          schluesselwoerter_begonnen = False
+                      
+                      if schluesselwoerter_begonnen:
+                          if not zeile.startswith('[') and zeile:
+                              if aktuelles_schluesselwort:
+                                  ergebnisse.append({
+                                      'schluesselwort': aktuelles_schluesselwort,
+                                      'dokumentation': '\\n'.join(dokumentation)
+                                  })
+                              aktuelles_schluesselwort = zeile
+                              dokumentation = []
+                          elif zeile.startswith('[Dokumentation]') and aktuelles_schluesselwort:
+                              dokumentation.append(zeile.replace('[Dokumentation]', '').strip())
+          
+                  if aktuelles_schluesselwort:
+                      ergebnisse.append({
+                          'schluesselwort': aktuelles_schluesselwort,
+                          'dokumentation': '\\n'.join(dokumentation)
+                      })
+          
+              with open(ausgabe_datei, 'w', encoding='utf-8') as ausgabe:
+                  for ergebnis in ergebnisse:
+                      ausgabe.write(f'Schlüsselwort: {ergebnis[''schluesselwort'']}\n')
+                      ausgabe.write('Dokumentation:\\n')
+                      ausgabe.write(f'{ergebnis[''dokumentation'']}\n')
+                      ausgabe.write('\n' + '='*50 + '\n\n')
+          
+              print(f'Dokumentation erfolgreich in {ausgabe_datei} gespeichert.")
+          
+          extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
+          "
+          
+                - name: Upload Results
+                  uses: actions/upload-artifact@v4
+                  with:
+                    name: robot-test-results
+                    path: results/
