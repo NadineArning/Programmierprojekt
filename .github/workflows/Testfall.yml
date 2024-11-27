@@ -88,8 +88,6 @@ jobs:
                       ausgabe.write('Dokumentation:\\n')
                       ausgabe.write(f'{ergebnis[\"dokumentation\"]}\\n')
           
-              print(f'Dokumentation erfolgreich in {ausgabe_datei} gespeichert.\")
-          
           extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
           "
           
