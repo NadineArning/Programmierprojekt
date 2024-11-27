@@ -37,10 +37,10 @@ jobs:
         run: |
           python3 -c "
           import os
-
+          
           def extrahiere_keywords_und_dokumentation(verzeichnis, ausgabe_datei):
               robot_dateien = []
-              for wurzel, _, dateien in os.walk(verzeichnis):
+              for wurzel, ordner, dateien in os.walk(verzeichnis):
                   for datei in dateien:
                       if datei.endswith('.robot'):
                           robot_dateien.append(os.path.join(wurzel, datei))
@@ -61,7 +61,7 @@ jobs:
                           schluesselwoerter_begonnen = True
                           aktuelles_schluesselwort = None
                           continue
-                      elif zeile.startswith('***'):
+                      elif zeile.startswith('***') and schluesselwoerter_begonnen:
                           schluesselwoerter_begonnen = False
           
                       if schluesselwoerter_begonnen:
@@ -69,7 +69,7 @@ jobs:
                               if aktuelles_schluesselwort:
                                   ergebnisse.append({
                                       'schluesselwort': aktuelles_schluesselwort,
-                                      'dokumentation': '\n'.join(dokumentation).strip()
+                                      'dokumentation': '\\n'.join(dokumentation)
                                   })
                               aktuelles_schluesselwort = zeile
                               dokumentation = []
@@ -79,14 +79,14 @@ jobs:
                   if aktuelles_schluesselwort:
                       ergebnisse.append({
                           'schluesselwort': aktuelles_schluesselwort,
-                          'dokumentation': '\n'.join(dokumentation).strip()
+                          'dokumentation': '\\n'.join(dokumentation)
                       })
           
               with open(ausgabe_datei, 'w', encoding='utf-8') as ausgabe:
                   for ergebnis in ergebnisse:
-                      ausgabe.write(f'Schlüsselwort: {ergebnis["schluesselwort"]}\n')
-                      ausgabe.write('Dokumentation:\n')
-                      ausgabe.write(f'{ergebnis["dokumentation"]}\n\n')
+                      ausgabe.write(f'Schlüsselwort: {ergebnis[\"schluesselwort\"]}\\n')
+                      ausgabe.write('Dokumentation:\\n')
+                      ausgabe.write(f'{ergebnis[\"dokumentation\"]}\\n')
           
           extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
           "
