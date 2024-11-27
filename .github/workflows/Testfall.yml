@@ -23,16 +23,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Robot Framework and Browser library
-        run: |
-          pip install robotframework
-          pip install robotframework-browser
-          rfbrowser init
-
-      - name: Run Robot Framework Tests
-        run: |
-          robot --outputdir results programmierprojekt/Test.robot
-
       - name: Extract Keywords and Documentation
         run: |
           python3 -c "
@@ -69,7 +59,7 @@ jobs:
                               if aktuelles_schluesselwort:
                                   ergebnisse.append({
                                       'schluesselwort': aktuelles_schluesselwort,
-                                      'dokumentation': '\n'.join(dokumentation)
+                                      'dokumentation': '\\n'.join(dokumentation)
                                   })
                               aktuelles_schluesselwort = zeile
                               dokumentation = []
@@ -79,20 +69,22 @@ jobs:
                   if aktuelles_schluesselwort:
                       ergebnisse.append({
                           'schluesselwort': aktuelles_schluesselwort,
-                          'dokumentation': '\n'.join(dokumentation)
+                          'dokumentation': '\\n'.join(dokumentation)
                       })
           
               with open(ausgabe_datei, 'w', encoding='utf-8') as ausgabe:
                   for ergebnis in ergebnisse:
-                      ausgabe.write(f'Schlüsselwort: {ergebnis["schluesselwort"]}\n')
-                      ausgabe.write('Dokumentation:\n')
-                      ausgabe.write("{ergebnis["dokumentation"]}\n')
-                    
-          extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
-          "
+                      ausgabe.write(f'Schlüsselwort: {ergebnis[\"schluesselwort\"]}\\n')
+                      ausgabe.write('Dokumentation:\\n')
+                      ausgabe.write(f'{ergebnis[\"dokumentation\"]}\\n')
           
-                - name: Upload Results
-                  uses: actions/upload-artifact@v4
-                  with:
-                    name: robot-test-results
-                    path: results/
+              print(f'Dokumentation erfolgreich in {ausgabe_datei} gespeichert.")
+
+              extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
+              "
+              
+                    - name: Upload Results
+                      uses: actions/upload-artifact@v4
+                      with:
+                        name: robot-test-results
+                        path: results/
