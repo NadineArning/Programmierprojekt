@@ -23,6 +23,16 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install Robot Framework and Browser library
+        run: |
+          pip install robotframework
+          pip install robotframework-browser
+          rfbrowser init
+
+      - name: Run Robot Framework Tests
+        run: |
+          robot --outputdir results programmierprojekt/Test.robot
+
       - name: Extract Keywords and Documentation
         run: |
           python3 -c "
@@ -40,7 +50,7 @@ jobs:
               for robot_datei in robot_dateien:
                   with open(robot_datei, 'r', encoding='utf-8') as datei:
                       zeilen = datei.readlines()
-                  
+          
                   schluesselwoerter_begonnen = False
                   aktuelles_schluesselwort = None
                   dokumentation = []
@@ -53,7 +63,7 @@ jobs:
                           continue
                       elif zeile.startswith('***') and schluesselwoerter_begonnen:
                           schluesselwoerter_begonnen = False
-                      
+          
                       if schluesselwoerter_begonnen:
                           if not zeile.startswith('[') and zeile:
                               if aktuelles_schluesselwort:
@@ -79,12 +89,12 @@ jobs:
                       ausgabe.write(f'{ergebnis[\"dokumentation\"]}\\n')
           
               print(f'Dokumentation erfolgreich in {ausgabe_datei} gespeichert.")
-
-              extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
-              "
-              
-                    - name: Upload Results
-                      uses: actions/upload-artifact@v4
-                      with:
-                        name: robot-test-results
-                        path: results/
+          
+          extrahiere_keywords_und_dokumentation('programmierprojekt', 'results/output_keywords.txt')
+          "
+          
+                - name: Upload Results
+                  uses: actions/upload-artifact@v4
+                  with:
+                    name: robot-test-results
+                    path: results/
